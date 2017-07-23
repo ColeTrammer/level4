@@ -25,11 +25,15 @@ public class ReverseJournal {
      *
      * @throws FileNotFoundException
      */
-    void addEntry(String entry) throws FileNotFoundException {
+    void addEntry(String entry, boolean encrypt) throws FileNotFoundException {
  		try {
  			FileWriter fw = new FileWriter(journal, true);
 	    	PrintWriter out = new PrintWriter(fw);
-	    	out.print(encrypt(new Date().toString() + "\n") + entry + encrypt("-----------------------------\n"));
+	    	if (encrypt) {
+	    		out.print(encrypt("*encrypted*\n") + encrypt(new Date().toString() + "\n") + entry + encrypt("-----------------------------\n"));
+	    	} else {
+	    		out.print(new Date().toString() + "\n" + entry + "-----------------------------\n");
+	    	}
 	    	out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -43,11 +47,23 @@ public class ReverseJournal {
     String readEntry() throws FileNotFoundException {
     	Scanner in = new Scanner(journal);
     	String out = "";
+    	boolean decrypt = false;
     	while (in.hasNextLine()) {
-    		out += in.nextLine() + "\n";
+    		String line = in.nextLine();
+    		if (line.equals(encrypt("*encrypted*"))) {
+    			decrypt = true;
+    			continue;
+    		} else if (line.equals("-----------------------------")) {
+    			decrypt = false;
+    		}
+    		if (decrypt) {
+    			out += decrypt(line);
+    		} else {
+    			out += line + "\n";
+    		}
     	}
     	in.close();
-    	return decrypt(out);
+    	return out;
    	}
 
     /**

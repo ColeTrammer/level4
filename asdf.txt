@@ -1,0 +1,19 @@
+Sun Jul 23 13:49:30 PDT 2017
+asdf
+Genius entry
+-----------------------------
+*detpyrcne*
+7102 TDP 90:35:31 32 luJ nuS
+0.2 yrtne suineG
+-----------------------------
+*detpyrcne*
+7102 TDP 34:45:31 32 luJ nuS
+3
+-----------------------------
+*detpyrcne*
+7102 TDP 82:00:41 32 luJ nuS
+4 yrtne
+2 enil
+3
+99
+-----------------------------
